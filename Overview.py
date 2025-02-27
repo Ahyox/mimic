@@ -31,7 +31,7 @@ with diagnosis_column:
     diagnosis_code_B = st.text_input("Enter Diagnosis Code B")
 
 
-prompt = st.text_input("Enter your search term here")
+prompt = st.text_input("Enter your search term here (Optional)")
 
 if st.button("Submit", type="primary"):
     if not procedure_code_A or not diagnosis_code_B:
