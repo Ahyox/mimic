@@ -44,9 +44,8 @@ if st.button("Submit", type="primary"):
                 response = json.loads(response)
 
                 query = response['query']
-                query_param_count = response['query_param_count']
-
                 print("QUERY: ", response)
+                query_param_count = response['query_param_count']
                 query = query.format(procedure_A = "'"+procedure_code_A+"'", diagnosis_B = "'"+diagnosis_code_B+"'")
                 
                 with engine.connect() as conn:
