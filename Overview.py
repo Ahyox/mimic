@@ -61,7 +61,7 @@ if st.button("Submit", type="primary"):
                         fig = create_sankey(df)  # Call the generated function
                         st.plotly_chart(fig)
             except Exception as e:
-                st.error(f"An error occurred: {e}")  
+                st.error(f"An error occurred, please try again.")  
                                 
         else:
             # Query to get procedures
