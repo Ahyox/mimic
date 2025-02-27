@@ -13,7 +13,7 @@ class TextGenerator:
 
     def generate(self, should_return_json=True):
         try:
-            system_prompt = """I have four MIMIC-IV data tables in my MySQL database (defaultdb).
+            system_prompt = """I have four MIMIC-IV data tables in my MySQL database (mimicdb).
             Table 'admissions' has columns (hadm_id, subject_id, admittime, dischtime),
             'diagnoses_icd' has (subject_id, hadm_id, icd_code, icd_version),
             'patients' has (subject_id, gender, anchor_age, anchor_year),
