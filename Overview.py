@@ -39,27 +39,30 @@ if st.button("Submit", type="primary"):
         st.stop()
     else:
         if prompt:
-            response = sankey.TextGenerator(prompt).generate(True)
-            response = json.loads(response)
+            try:
+                response = sankey.TextGenerator(prompt).generate(True)
+                response = json.loads(response)
 
-            query = response['query']
-            query_param_count = response['query_param_count']
+                query = response['query']
+                query_param_count = response['query_param_count']
 
-            query = query.format(procedure_A = "'"+procedure_code_A+"'", diagnosis_B = "'"+diagnosis_code_B+"'")
-            #print("QUERY: ", response)
-            
-            with engine.connect() as conn:
-                df = pd.read_sql(query, conn) 
-                #st.code(response["sankey_code"], language="python")
+                print("QUERY: ", response)
+                query = query.format(procedure_A = "'"+procedure_code_A+"'", diagnosis_B = "'"+diagnosis_code_B+"'")
+                
+                with engine.connect() as conn:
+                    df = pd.read_sql(query, conn) 
+                    #st.code(response["sankey_code"], language="python")
 
-                # Execute the generated code
-                if df.empty:
-                    st.warning("No data found for the given inputs.")
-                else:
-                    # Execute the received sankey function
-                    exec(response['sankey_code'], globals())  # Runs the function in global scope
-                    fig = create_sankey(df)  # Call the generated function
-                    st.plotly_chart(fig)
+                    # Execute the generated code
+                    if df.empty:
+                        st.warning("No data found for the given inputs.")
+                    else:
+                        # Execute the received sankey function
+                        exec(response['sankey_code'], globals())  # Runs the function in global scope
+                        fig = create_sankey(df)  # Call the generated function
+                        st.plotly_chart(fig)
+            except Exception as e:
+                st.error(f"An error occurred: {e}")  
                                 
         else:
             # Query to get procedures
